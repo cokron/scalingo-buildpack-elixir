@@ -1,4 +1,6 @@
-# Heroku Buildpack for Elixir
+# Scalingo Buildpack for Elixir
+
+based on https://github.com/HashNuke/heroku-buildpack-elixir
 
 ## Features
 
