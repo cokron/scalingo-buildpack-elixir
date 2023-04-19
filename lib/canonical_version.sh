@@ -2,10 +2,10 @@
 
 erlang_builds_url() {
   case "${STACK}" in
-    "heroku-20")
+    "scalingo-20")
       erlang_builds_url="https://repo.hex.pm/builds/otp/ubuntu-20.04"
       ;;
-    "heroku-22")
+    "scalingo-22")
       erlang_builds_url="https://repo.hex.pm/builds/otp/ubuntu-22.04"
       ;;
     *)
@@ -22,11 +22,11 @@ fetch_elixir_versions() {
 
 fetch_erlang_versions() {
   case "${STACK}" in
-    "heroku-20")
+    "scalingo-20")
       url="https://repo.hex.pm/builds/otp/ubuntu-20.04/builds.txt"
       curl -s "$url" | awk '/^OTP-([0-9.]+ )/ {print substr($1,5)}'
       ;;
-    "heroku-22")
+    "scalingo-22")
       url="https://repo.hex.pm/builds/otp/ubuntu-22.04/builds.txt"
       curl -s "$url" | awk '/^OTP-([0-9.]+ )/ {print substr($1,5)}'
       ;;
