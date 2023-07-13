@@ -3,10 +3,10 @@
 erlang_builds_url() {
   case "${STACK}" in
     "scalingo-20")
-      erlang_builds_url="https://repo.hex.pm/builds/otp/ubuntu-20.04"
+      erlang_builds_url="https://builds.hex.pm/builds/otp/ubuntu-20.04"
       ;;
     "scalingo-22")
-      erlang_builds_url="https://repo.hex.pm/builds/otp/ubuntu-22.04"
+      erlang_builds_url="https://builds.hex.pm/builds/otp/ubuntu-22.04"
       ;;
     *)
       erlang_builds_url="https://s3.amazonaws.com/heroku-buildpack-elixir/erlang/cedar-14"
@@ -16,18 +16,18 @@ erlang_builds_url() {
 }
 
 fetch_elixir_versions() {
-  url="https://repo.hex.pm/builds/elixir/builds.txt"
+  url="https://builds.hex.pm/builds/elixir/builds.txt"
   curl -s "$url" | awk '/^v[0-9.]+[- ]/ { print $1 }'
 }
 
 fetch_erlang_versions() {
   case "${STACK}" in
     "scalingo-20")
-      url="https://repo.hex.pm/builds/otp/ubuntu-20.04/builds.txt"
+      url="https://builds.hex.pm/builds/otp/ubuntu-20.04/builds.txt"
       curl -s "$url" | awk '/^OTP-([0-9.]+ )/ {print substr($1,5)}'
       ;;
     "scalingo-22")
-      url="https://repo.hex.pm/builds/otp/ubuntu-22.04/builds.txt"
+      url="https://builds.hex.pm/builds/otp/ubuntu-22.04/builds.txt"
       curl -s "$url" | awk '/^OTP-([0-9.]+ )/ {print substr($1,5)}'
       ;;
     *)
@@ -66,7 +66,7 @@ check_erlang_version() {
   version=$1
   exists=$(exact_erlang_version_available "$version" "$(fetch_erlang_versions)")
   if [ $exists -ne 0 ]; then
-    output_line "Sorry, Erlang '$version' isn't supported yet or isn't formatted correctly. For a list of supported versions, please see https://github.com/HashNuke/heroku-buildpack-elixir#version-support"
+    output_line "Sorry, Erlang '$version' isn't supported yet or isn't formatted correctly. For a list of supported versions, please see https://github.com/cokron/scalingo-buildpack-elixir#version-support"
     exit 1
   fi
 }
@@ -75,7 +75,7 @@ check_elixir_version() {
   version=$1
   exists=$(exact_elixir_version_available "$version" "$(fetch_elixir_versions)")
   if [ $exists -ne 0 ]; then
-    output_line "Sorry, Elixir '$version' isn't supported yet or isn't formatted correctly. For a list of supported versions, please see https://github.com/HashNuke/heroku-buildpack-elixir#version-support"
+    output_line "Sorry, Elixir '$version' isn't supported yet or isn't formatted correctly. For a list of supported versions, please see https://github.com/cokron/scalingo-buildpack-elixir#version-support"
     exit 1
   fi
 }
